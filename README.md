@@ -1,2 +1,7 @@
-# rss-aggregator
-This is a a CLI tool that allows users to:      Add RSS feeds from across the internet to be collected     Store the collected posts in a PostgreSQL database     Follow and unfollow RSS feeds that other users have added     View summaries of the aggregated posts in the terminal, with a link to the full post
+# RSS Collector CLI
+
+A command-line tool for effortlessly managing and aggregating RSS feeds. 
+
+- **Add & store**: Collect and store RSS feed posts in a PostgreSQL database.
+- **Follow/Unfollow**: Follow or unfollow feeds added by other users.
+- **Post Summaries**: View aggregated post summaries directly in the terminal with links to full articles.
