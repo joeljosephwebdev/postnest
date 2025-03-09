@@ -1,4 +1,4 @@
 {
-  "db_url": "postgres://example",
-  "current_user_name": "boots"
+  "db_url": "postgres://joeljoseph:@localhost:5432/postnest?sslmode=disable",
+  "current_user_name": ""
 }

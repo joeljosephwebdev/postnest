@@ -1,0 +1,1 @@
+cd sql/schema && goose postgres postgres://joeljoseph:@localhost:5432/postnest?sslmode=disable down
