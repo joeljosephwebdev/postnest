@@ -1,4 +1,1 @@
-{
-  "db_url": "postgres://joeljoseph:@localhost:5432/postnest?sslmode=disable",
-  "current_user_name": ""
-}
+{"db_url":"postgres://joeljoseph:@localhost:5432/postnest?sslmode=disable","current_user_name":"kahya"}

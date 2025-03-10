@@ -15,7 +15,6 @@ func handlerLogin(s *state, cmd command) error {
 		return fmt.Errorf("missing login credentials")
 	}
 	username := cmd.Args[0]
-	fmt.Println(username)
 
 	User, err := s.db.GetUser(context.Background(), username)
 	if err != nil {
