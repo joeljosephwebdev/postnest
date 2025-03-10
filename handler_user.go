@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/google/uuid"
@@ -27,7 +26,7 @@ func handlerLogin(s *state, cmd command) error {
 	}
 
 	fmt.Println("User switched successfully!")
-
+	printUser(User)
 	return nil
 }
 
@@ -51,7 +50,27 @@ func handlerRegister(s *state, cmd command) error {
 
 	s.cfg.SetUser(name)
 	fmt.Println("User created successfully!")
-	log.Printf("\nID: %s\nName: %s\nCreated_at: %s\n", User.ID.String(), User.Name, User.CreatedAt.Format(time.RFC822))
+	printUser(User)
 
 	return nil
+}
+
+func handlerGetUsers(s *state, cmd command) error {
+	Users, err := s.db.GetUsers(context.Background())
+	if err != nil {
+		return fmt.Errorf("failed to get users: %w", err)
+	}
+	for _, user := range Users {
+		if user.Name == s.cfg.CurrentUserName {
+			fmt.Printf("* %v (current)\n", user.Name)
+		} else {
+			fmt.Printf("* %v\n", user.Name)
+		}
+	}
+	return nil
+}
+
+func printUser(user database.User) {
+	fmt.Printf(" * ID:      %v\n", user.ID)
+	fmt.Printf(" * Name:    %v\n", user.Name)
 }
