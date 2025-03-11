@@ -40,6 +40,7 @@ func main() {
 	cmds.register("register", handlerRegister)
 	cmds.register("reset", handleReset)
 	cmds.register("users", handlerGetUsers)
+	cmds.register("agg", agg)
 	if len(os.Args) < 2 {
 		log.Fatal("Usage: cli <command> [args...]")
 		return
