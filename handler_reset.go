@@ -11,6 +11,6 @@ func handleReset(s *state, cmd command) error {
 	if err != nil {
 		return fmt.Errorf("failed to reset users: %w", err)
 	}
-	log.Printf("User table reset!\n")
+	log.Printf("Database reset!\n")
 	return nil
 }
