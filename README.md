@@ -42,4 +42,16 @@ You can operate the app from the root folder.
   ```sh
   go run . addfeed <name> <url>
 
+* list all feeds
+  ```sh
+  go run . feeds
+
+* follow existing feed
+  ```sh
+  go run . follow <url>
+
+* show current user's feeds
+  ```sh
+  go run . following
+
 

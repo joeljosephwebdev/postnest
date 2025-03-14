@@ -35,6 +35,11 @@ func handlerAddFeed(s *state, cmd command) error {
 		return fmt.Errorf("failed to create feed %w", err)
 	}
 
+	_, err = createFeedFollow(s, User.ID, feed.ID)
+	if err != nil {
+		return err
+	}
+
 	fmt.Printf(
 		"feedID: %v\nname: %s\nurl: %s\ncreatedAt: %v\n",
 		feed.ID,
@@ -51,8 +56,8 @@ func printFeed(feed database.GetFeedsRow) {
 	fmt.Printf("name:        %s\n", feed.Name)
 	fmt.Printf("url:         %s\n", feed.Url)
 	fmt.Printf("username:    %v\n", feed.Username)
-	fmt.Printf("createdAt:   %v\n", feed.Createdat.Format(time.UnixDate))
-	fmt.Printf("updatedAt:   %v\n", feed.Updatedat.Format(time.UnixDate))
+	fmt.Printf("createdAt:   %v\n", feed.CreatedAt.Format(time.UnixDate))
+	fmt.Printf("updatedAt:   %v\n", feed.UpdatedAt.Format(time.UnixDate))
 	fmt.Println("================================================================")
 }
 

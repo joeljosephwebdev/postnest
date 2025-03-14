@@ -5,12 +5,11 @@ RETURNING *;
 
 -- name: GetFeeds :many
 SELECT 
-feeds.id AS id,
-feeds.created_at AS createdAt,
-feeds.updated_at AS updatedAt,
-feeds.name AS name,
-feeds.url AS URL,
+feeds.*,
 users.name AS username
 FROM feeds
 INNER JOIN users
 ON feeds.user_id = users.id;
+
+-- name: GetFeedByURL :one
+SELECT * FROM feeds WHERE url = $1;
