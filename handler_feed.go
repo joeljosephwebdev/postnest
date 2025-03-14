@@ -9,13 +9,9 @@ import (
 	"github.com/joeljosephwebdev/postnest.git/internal/database"
 )
 
-func handlerAddFeed(s *state, cmd command) error {
+func handlerAddFeed(s *state, cmd command, user database.User) error {
 	if len(cmd.Args) < 2 {
 		return fmt.Errorf("usage: %s <name> <url>", cmd.Name)
-	}
-	User, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-	if err != nil {
-		return fmt.Errorf("login error - %v", err)
 	}
 
 	name := cmd.Args[0]
@@ -27,7 +23,7 @@ func handlerAddFeed(s *state, cmd command) error {
 		UpdatedAt: time.Now(),
 		Name:      name,
 		Url:       url,
-		UserID:    User.ID,
+		UserID:    user.ID,
 	}
 
 	feed, err := s.db.CreateFeed(context.Background(), params)
@@ -35,7 +31,7 @@ func handlerAddFeed(s *state, cmd command) error {
 		return fmt.Errorf("failed to create feed %w", err)
 	}
 
-	_, err = createFeedFollow(s, User.ID, feed.ID)
+	_, err = createFeedFollow(s, user.ID, feed.ID)
 	if err != nil {
 		return err
 	}

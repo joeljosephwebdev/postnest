@@ -9,16 +9,13 @@ import (
 	"github.com/joeljosephwebdev/postnest.git/internal/database"
 )
 
-func handlerFeedFollow(s *state, cmd command) error {
+func handlerFeedFollow(s *state, cmd command, user database.User) error {
 	if len(cmd.Args) < 1 {
 		return fmt.Errorf("usage: %s <url>", cmd.Name)
 	}
 
 	url := cmd.Args[0]
-	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-	if err != nil {
-		return fmt.Errorf("failed to get user id for user %s: %v", s.cfg.CurrentUserName, err)
-	}
+
 	feed, err := s.db.GetFeedByURL(context.Background(), url)
 	if err != nil {
 		return fmt.Errorf("feed not found %v", err)
@@ -76,7 +73,7 @@ func printFeedFollowForUserRow(ffRow database.GetFeedFollowsForUserRow) {
 	fmt.Printf("FeedID: %v\n", ffRow.FeedID)
 }
 
-func showFollowing(s *state, cmd command) error {
+func showFollowing(s *state, cmd command, user database.User) error {
 	feed_follows, err := s.db.GetFeedFollowsForUser(context.Background(), s.cfg.CurrentUserName)
 	if err != nil {
 		return fmt.Errorf("unable to retrieve followed feeds: %v", err)
