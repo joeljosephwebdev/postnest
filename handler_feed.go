@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"time"
 
@@ -18,12 +19,13 @@ func handlerAddFeed(s *state, cmd command, user database.User) error {
 	url := cmd.Args[1]
 
 	params := database.CreateFeedParams{
-		ID:        uuid.New(),
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
-		Name:      name,
-		Url:       url,
-		UserID:    user.ID,
+		ID:            uuid.New(),
+		CreatedAt:     time.Now(),
+		UpdatedAt:     time.Now(),
+		LastFetchedAt: sql.NullTime{},
+		Name:          name,
+		Url:           url,
+		UserID:        user.ID,
 	}
 
 	feed, err := s.db.CreateFeed(context.Background(), params)

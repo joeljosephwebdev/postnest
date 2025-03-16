@@ -54,6 +54,25 @@ func createFeedFollow(
 	return feed_follow, nil
 }
 
+func handlerUnfollowFeed(s *state, cmd command, user database.User) error {
+	if len(cmd.Args) < 1 {
+		return fmt.Errorf("usage: %s <url>", cmd.Name)
+	}
+
+	url := cmd.Args[0]
+	params := database.RemoveFeedFollowParams{
+		UserID: user.ID,
+		Url:    url,
+	}
+	err := s.db.RemoveFeedFollow(context.Background(), params)
+	if err != nil {
+		return fmt.Errorf("failed to unfollow feed: %w", err)
+	}
+
+	fmt.Printf("Unfollowed: %s\n", url)
+	return nil
+}
+
 func printFeedFollow(feeds_follow database.FeedsFollow) {
 	fmt.Printf("ID: %v\n", feeds_follow.ID)
 	fmt.Printf("CreatedAt: %s\n", feeds_follow.CreatedAt.Format(time.UnixDate))
