@@ -6,7 +6,34 @@ Create your own cozy corner of the web with PostNest. PostNest is a command-line
 - **Follow/Unfollow**: Follow or unfollow feeds added by other users.
 - **Post Summaries**: View aggregated post summaries directly in the terminal with links to full articles.
 
+This is a guided project from Boot.dev, called gator. 
+
+## Authors 🙋‍♂️
+
+- [Joel Joseph](https://www.github.com/joeljosephwebdev)
+
+## Prerequisites 🚀
+
+For this project you will need Go v1.23 or later,  Postgres,  [goose](https://github.com/pressly/goose) and [sqlc](https://docs.sqlc.dev/en/latest/) installed. You can see the versions I used while building this project below.
+
+* check versions
+  ```sh
+  >> go version
+  go1.23.5 darwin/arm64
+
+  >> postgres --version
+  postgres (PostgreSQL) 15.12
+
+  >> sqlc version
+  v1.28.0
+
+  >> goose -version
+  goose version: v3.24.1
+
+
 ## Getting Started 💫
+
+Add the db_url for your db to the postnestconfig.json file.
 
 * migrate database
   ```sh
@@ -17,6 +44,8 @@ Create your own cozy corner of the web with PostNest. PostNest is a command-line
 * generate SQL commands
   ```sh
   sqlc generate
+
+Now the app is ready to use.
 
 ## Usage 🧑‍💻
 
@@ -54,4 +83,14 @@ You can operate the app from the root folder.
   ```sh
   go run . following
 
+* unfollow feed 
+  ```sh
+  go run . unfollow <url>
 
+* start the aggregator loop to pull and store feeds to the db
+  ```sh
+  go run . agg <duration_string>
+
+* browse saved feeds
+  ```sh
+  go run . browse <limit>[optional]
